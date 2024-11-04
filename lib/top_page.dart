@@ -13,7 +13,13 @@ class TopPage extends ConsumerStatefulWidget {
 class _TopPageState extends ConsumerState<TopPage> {
   @override
   Widget build(BuildContext context) {
-    final person = ref.watch(personProvider);
+    // final person = ref.watch(personProvider);
+
+    /// 上記のコードは以下のように細分化もでき、
+    /// それぞれのstateを個別に監視することもできる（無駄なリビルドを防ぐことができる）
+    final personName =
+        ref.watch(personProvider.select((person) => person.name));
+    final personAge = ref.watch(personProvider.select((person) => person.age));
 
     ref.listen(personProvider, (previous, next) {
       print('previous: $previous, next: $next');
@@ -21,8 +27,8 @@ class _TopPageState extends ConsumerState<TopPage> {
 
     return Column(
       children: [
-        Text(person.name),
-        Text(person.age.toString()),
+        Text(personName),
+        Text(personAge.toString()),
         ElevatedButton(
           onPressed: () {
             ref.read(personProvider.notifier).state =
