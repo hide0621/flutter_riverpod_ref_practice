@@ -26,7 +26,7 @@ flutter riverpod ref practice
 
 - `ref.read`
 
-  - stateの監視は行わず、stateの値を取得する
+  - stateの監視は行わず、このコードが実行されたタイミングのstateの値を取得する
     
   - または、`ref.read(personProvider.notifier).state = Person(name: "nemo", age: 16);` といったstateの書き換えを行う際にも使われる
     
